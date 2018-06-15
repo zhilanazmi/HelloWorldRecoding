@@ -11,8 +11,8 @@ from googletrans import Translator
 from humanfriendly import format_timespan, format_size, format_number, format_length
 import time, random, sys, json, codecs, threading, glob, re, string, os, requests, six, ast, pytz, urllib, urllib3, urllib.parse, traceback, atexit
 
-client = LINE()
-#client = LINE("")
+client = LINE("")
+client.log("Auth Token : " + str(line.authToken))
 clientMid = client.profile.mid
 clientProfile = client.getProfile()
 clientSettings = client.getSettings()
@@ -327,34 +327,14 @@ def helpmessage():
                     "╠ " + key + "Status" + "\n" + \
                     "╠ MyKey" + "\n" + \
                     "╠ SetKey「On/Off」" + "\n" + \
-                    "╠══[ Settings Command ]" + "\n" + \
-                    "╠ " + key + "AutoAdd「On/Off」" + "\n" + \
-                    "╠ " + key + "AutoJoin「On/Off」" + "\n" + \
-                    "╠ " + key + "AutoJoinTicket「On/Off」" + "\n" + \
-                    "╠ " + key + "AutoLeave「On/Off」" + "\n" + \
-                    "╠ " + key + "AutoRead「On/Off」" + "\n" + \
-                    "╠ " + key + "AutoRespon「On/Off」" + "\n" + \
-                    "╠ " + key + "CheckContact「On/Off」" + "\n" + \
-                    "╠ " + key + "CheckPost「On/Off」" + "\n" + \
-                    "╠ " + key + "CheckSticker「On/Off」" + "\n" + \
-                    "╠ " + key + "UnsendChat「On/Off」" + "\n" + \
-                    "╠══[ Self Command ]" + "\n" + \
-                    "╠ " + key + "ChangeName:「Query」" + "\n" + \
-                    "╠ " + key + "ChangeBio:「Query」" + "\n" + \
-                    "╠ " + key + "Me" + "\n" + \
-                    "╠ " + key + "MyMid" + "\n" + \
-                    "╠ " + key + "MyName" + "\n" + \
-                    "╠ " + key + "MyBio" + "\n" + \
-                    "╠ " + key + "MyPicture" + "\n" + \
-                    "╠ " + key + "MyVideoProfile" + "\n" + \
-                    "╠ " + key + "MyCover" + "\n" + \
-                    "╠ " + key + "StealContact「Mention」" + "\n" + \
-                    "╠ " + key + "StealMid「Mention」" + "\n" + \
-                    "╠ " + key + "StealName「Mention」" + "\n" + \
-                    "╠ " + key + "StealBio「Mention」" + "\n" + \
-                    "╠ " + key + "StealPicture「Mention」" + "\n" + \
-                    "╠ " + key + "StealVideoProfile「Mention」" + "\n" + \
-                    "╠ " + key + "StealCover「Mention」" + "\n" + \
+                    "╠══[ Public Command ]" + "\n" + \
+                    "╠ " + key + "GetContact「Mention」" + "\n" + \
+                    "╠ " + key + "getMid「Mention」" + "\n" + \
+                    "╠ " + key + "getName「Mention」" + "\n" + \
+                    "╠ " + key + "getBio「Mention」" + "\n" + \
+                    "╠ " + key + "getPicture「Mention」" + "\n" + \
+                    "╠ " + key + "getVideoProfile「Mention」" + "\n" + \
+                    "╠ " + key + "getCover「Mention」" + "\n" + \
                     "╠ " + key + "CloneProfile「Mention」" + "\n" + \
                     "╠ " + key + "RestoreProfile" + "\n" + \
                     "╠ " + key + "BackupProfile" + "\n" + \
@@ -366,7 +346,6 @@ def helpmessage():
                     "╠ " + key + "GroupPicture" + "\n" + \
                     "╠ " + key + "GroupTicket" + "\n" + \
                     "╠ " + key + "GroupTicket「On/Off」" + "\n" + \
-                    "╠ " + key + "GroupList" + "\n" + \
                     "╠ " + key + "GroupMemberList" + "\n" + \
                     "╠ " + key + "GroupInfo" + "\n" + \
                     "╠ " + key + "ChangeGroupPicture" + "\n" + \
@@ -380,18 +359,12 @@ def helpmessage():
                     "╠ " + key + "Lurking" + "\n" + \
                     "╠══[ Media Command ]" + "\n" + \
                     "╠ " + key + "CheckDate「Date」" + "\n" + \
-                    "╠ " + key + "CheckWebsite「url」" + "\n" + \
-                    "╠ " + key + "CheckPraytime「Location」" + "\n" + \
-                    "╠ " + key + "CheckWeather「Location」" + "\n" + \
-                    "╠ " + key + "CheckLocation「Location」" + "\n" + \
-                    "╠ " + key + "InstaInfo 「UserName」" + "\n" + \
-                    "╠ " + key + "InstaPost 「UserName」|「Number」" + "\n" + \
-                    "╠ " + key + "InstaStory 「UserName」|「Number」" + "\n" + \
+                    "╠ " + key + "InstaInfo 「UserName」[ Maintenance ] " + "\n" + \
+                    "╠ " + key + "InstaPost 「UserName」|「Number」[ Maintenance ] " + "\n" + \
+                    "╠ " + key + "InstaStory 「UserName」|「Number」[ Maintenance ] " + "\n" + \
                     "╠ " + key + "SearchYoutube「Search」" + "\n" + \
-                    "╠ " + key + "SearchMusic 「Search」" + "\n" + \
-                    "╠ " + key + "SearchLyric 「Search」" + "\n" + \
                     "╠ " + key + "SearchImage 「Search」" + "\n" + \
-                    "╚══[ Copyright @Zero-Cool404 ]"
+                    "╚══[ Zhilan Azmi ]"
     return helpMessage
 
 def helptexttospeech():
@@ -598,9 +571,9 @@ def clientBot(op):
                 sendMention(op.param1, "Oi asw @!,ngapain invite saya")
                 client.leaveRoom(op.param1)
 
-        if op.type == 25:
+        if op.type == 26:
             try:
-                print ("[ 25 ] SEND MESSAGE")
+                print ("[ 26 ] SEND MESSAGE")
                 msg = op.message
                 text = msg.text
                 msg_id = msg.id
@@ -823,7 +796,7 @@ def clientBot(op):
                                 except Exception as e:
                                     client.sendMessage(to, "Gagal backup profile")
                                     logError(error)
-                            elif cmd.startswith("stealmid "):
+                            elif cmd.startswith("getmid "):
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
                                     mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -836,7 +809,7 @@ def clientBot(op):
                                     for ls in lists:
                                         ret_ += "\n{}".format(str(ls))
                                     client.sendMessage(to, str(ret_))
-                            elif cmd.startswith("stealname "):
+                            elif cmd.startswith("getname "):
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
                                     mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -848,7 +821,7 @@ def clientBot(op):
                                     for ls in lists:
                                         contact = client.getContact(ls)
                                         client.sendMessage(to, "[ Display Name ]\n{}".format(str(contact.displayName)))
-                            elif cmd.startswith("stealbio "):
+                            elif cmd.startswith("getbio "):
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
                                     mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -860,7 +833,7 @@ def clientBot(op):
                                     for ls in lists:
                                         contact = client.getContact(ls)
                                         client.sendMessage(to, "[ Status Message ]\n{}".format(str(contact.statusMessage)))
-                            elif cmd.startswith("stealpicture"):
+                            elif cmd.startswith("getpicture"):
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
                                     mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -873,7 +846,7 @@ def clientBot(op):
                                         contact = client.getContact(ls)
                                         path = "http://dl.profile.line.naver.jp/{}".format(contact.pictureStatus)
                                         client.sendImageWithURL(to, str(path))
-                            elif cmd.startswith("stealvideoprofile "):
+                            elif cmd.startswith("getvideoprofile "):
                                 if 'MENTION' in msg.contentMetadata.keys()!= None:
                                     names = re.findall(r'@(\w+)', text)
                                     mention = ast.literal_eval(msg.contentMetadata['MENTION'])
@@ -886,7 +859,7 @@ def clientBot(op):
                                         contact = client.getContact(ls)
                                         path = "http://dl.profile.line.naver.jp/{}/vp".format(contact.pictureStatus)
                                         client.sendVideoWithURL(to, str(path))
-                            elif cmd.startswith("stealcover "):
+                            elif cmd.startswith("getcover "):
                                 if client != None:
                                     if 'MENTION' in msg.contentMetadata.keys()!= None:
                                         names = re.findall(r'@(\w+)', text)
