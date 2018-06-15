@@ -360,8 +360,8 @@ def helpmessage():
                     "╠══[ Media Command ]" + "\n" + \
                     "╠ " + key + "CheckDate「Date」" + "\n" + \
                     "╠ " + key + "InstaInfo 「UserName」[ Maintenance ] " + "\n" + \
-                    "╠ " + key + "InstaPost 「UserName」|「Number」[ Maintenance ] " + "\n" + \
-                    "╠ " + key + "InstaStory 「UserName」|「Number」[ Maintenance ] " + "\n" + \
+                    "╠ " + key + "InstaPost 「UserName」|「Number」" + "\n" + \
+                    "╠ " + key + "InstaStory 「UserName」|「Number」" + "\n" + \
                     "╠ " + key + "SearchYoutube「Search」" + "\n" + \
                     "╠ " + key + "SearchImage 「Search」" + "\n" + \
                     "╚══[ Zhilan Azmi ]"
