@@ -1,5 +1,7 @@
 # ![logo](LINE-sm.png) LINE Python
 
+## **THIS IS PUBLIC BOT NOT SELFBOT
+
 *LINE Messaging's private API*
 
 ----
